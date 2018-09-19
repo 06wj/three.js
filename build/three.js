@@ -25098,6 +25098,12 @@
 				viewWorldMatrix.getInverse( this.modelViewMatrix ).premultiply( this.matrixWorld );
 				mvPosition.setFromMatrixPosition( this.modelViewMatrix );
 
+				if ( ! this.material.sizeAttenuation ) {
+
+					worldScale.multiplyScalar( - mvPosition.z );
+
+				}
+
 				var rotation = this.material.rotation;
 				var sin, cos;
 				if ( rotation !== 0 ) {
