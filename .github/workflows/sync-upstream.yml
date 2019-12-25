@@ -1,0 +1,32 @@
+name: Sync Upstream
+on: push
+jobs:
+  github-sync:
+    name: Github Sync
+    runs-on: ubuntu-latest
+    steps:
+    - name: repo-sync
+      uses: wei/git-sync@v1.1.2
+      env:
+        SOURCE_REPO: "git@github.com:mrdoob/three.js.git"
+        SOURCE_BRANCH: "dev"
+        DESTINATION_REPO: "git@github.com:fork-open-source/three.js.git"
+        DESTINATION_BRANCH: "dev"
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      with:
+        args: $SOURCE_REPO $SOURCE_BRANCH $DESTINATION_REPO $DESTINATION_BRANCH
+  gitee-sync:
+    name: Gitee Sync
+    runs-on: ubuntu-latest
+    steps:
+    - name: repo-sync
+      uses: wei/git-sync@v1.1.2
+      env:
+        SOURCE_REPO: "git@github.com:mrdoob/three.js.git"
+        SOURCE_BRANCH: "dev"
+        DESTINATION_REPO: "git@gitee.com:mirror-open-source/three.js.git"
+        DESTINATION_BRANCH: "dev"
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      with:
+        args: $SOURCE_REPO $SOURCE_BRANCH $DESTINATION_REPO $DESTINATION_BRANCH
+
